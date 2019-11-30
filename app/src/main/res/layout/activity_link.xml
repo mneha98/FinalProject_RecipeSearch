@@ -7,7 +7,7 @@
         android:id="@+id/link"
         android:layout_width="match_parent"
         android:layout_height="650dp"
-        android:text="link" />
+        android:text="links here" />
 
     <Button
         android:id="@+id/button2"
