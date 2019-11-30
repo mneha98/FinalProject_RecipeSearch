@@ -18,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             addIngredient();
         });
 
-        findViewById(R.id.findRecipe).setOnClickListener(unused -> {
+        Button findRecipe = findViewById(R.id.findRecipe);
+        findRecipe.setOnClickListener(unused -> {
             checkFilterList();
             findRecipeClicked();
         });
@@ -56,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
         //Required for API call
         queue = Volley.newRequestQueue(this);
         btnSearchClickEventHandler();
+
     }
 
-    private JsonObjectRequest searchNameStringRequest() {
+    private StringRequest searchNameStringRequest() {
+        Log.d("Message0.0", "Entered searchNameStringRequest");
 
         /*final String API = "&api_key=Rj03HpAXEXrZDfrOx9sIU8W2Fk4kWcAlFm4u5Ldd";
         final String NAME_SEARCH = "&q=";
@@ -69,20 +73,23 @@ public class MainActivity extends AppCompatActivity {
         final String BEGINNING_ROW = "&offset=0";
         final String URL_PREFIX = "https://api.nal.usda.gov/ndb/search/?format=json";*/
 
-        String url = "https://api.edamam.com/search?q=flour&beans&health=peanut-free&health=tree-nut-free&app_id=a48c16e0&app_key=ac643dd19616db4a4bd55efe28e568fb";
+        final String url = "https://api.edamam.com/search?q=flour&beans&health=peanut-free&health=tree-nut-free&app_id=a48c16e0&app_key=ac643dd19616db4a4bd55efe28e568fb";
 
         // 1st param => type of method (GET/PUT/POST/PATCH/etc)
         // 2nd param => complete url of the API
         // 3rd param => Response.Listener -> Success procedure
         // 4th param => Response.ErrorListener -> Error procedure
-        return new JsonObjectRequest(Request.Method.GET, url, null,
-                      new Response.Listener<JSONObject>() {
+        return new StringRequest(Request.Method.GET, url,
+                      new Response.Listener<String>() {
                           @Override
-                          public void onResponse(JSONObject response) {
+                          public void onResponse(String response) {
+                              Log.d("Message0.1", "Entered onResponse");
                               try {
-                                  int count = response.getInt("count");
+                                  Log.d("Message0.2", "Entered try catch");
+                                  JSONObject result = new JSONObject(response);
+                                  int count = result.getInt("count");
                                   //JSONArray hits = new JSONArray();
-                                  JSONArray hits = response.getJSONArray("hits");
+                                  JSONArray hits = result.getJSONArray("hits");
                                   JSONObject recipe = hits.getJSONObject(0);
                                   String recipeName = recipe.get("label").toString();
 
@@ -148,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         //queue.cancelAll(TAG_SEARCH_NAME);
 
         // first StringRequest: getting items searched
-        JsonObjectRequest stringRequest = searchNameStringRequest();
+        StringRequest stringRequest = searchNameStringRequest();
         //stringRequest.setTag(TAG_SEARCH_NAME);
 
         // executing the request (adding to queue)
@@ -218,7 +225,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findRecipeClicked() {
-        startActivity(new Intent(MainActivity.this, Results.class));
+        Intent resultsScreen = new Intent(getApplicationContext(), Results.class);
+        startActivity(resultsScreen);
 
 
     }

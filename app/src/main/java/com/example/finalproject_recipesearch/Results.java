@@ -10,9 +10,9 @@ public class Results extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        findViewById(R.id.view).setOnClickListener(unused -> {
+        /*findViewById(R.id.view).setOnClickListener(unused -> {
             startActivity(new Intent(Results.this, Recipe.class));
-        });
+        });*/
 
     }
 
