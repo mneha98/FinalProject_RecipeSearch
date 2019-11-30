@@ -7,15 +7,21 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/chooseTypes"
+            android:id="@+id/filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose The Types You Want"
+            android:text="Filters"
             android:textSize="25sp" />
 
         <LinearLayout
@@ -30,127 +36,137 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/mealType"
+                    android:id="@+id/restrictions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Meal Type"
+                    android:text="Diet Restrictions"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/breakfast"
+                <CheckBox
+                    android:id="@+id/balanced"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Breakfast"
+                    android:text="Balanced"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/lunch"
+                <CheckBox
+                    android:id="@+id/highProtein"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lunch"
+                    android:text="High Protein"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/dinner"
+                <CheckBox
+                    android:id="@+id/lowFat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dinner"
+                    android:text="Low Fat"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/snack"
+                <CheckBox
+                    android:id="@+id/vegan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Snack"
+                    android:text="Vegan"
                     android:textSize="20sp" />
             </RadioGroup>
 
-            <RadioGroup
-                android:id="@+id/cuisineTypeGroup"
-                android:layout_width="205dp"
-                android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/cuisineType"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cuisine Type"
+                    android:layout_height="30dp"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/american"
+                <CheckBox
+                    android:id="@+id/vegetarian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="American"
+                    android:text="Vegetarian"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/asian"
+                <CheckBox
+                    android:id="@+id/peanutFree"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Asian"
+                    android:text="Peanut Free"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/italian"
+                <CheckBox
+                    android:id="@+id/lowSugar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Italian"
+                    android:text="Sugar Conscious"
                     android:textSize="20sp" />
 
-                <RadioButton
-                    android:id="@+id/all"
+                <CheckBox
+                    android:id="@+id/alcoholFree"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="All"
+                    android:text="Alcohol Free"
                     android:textSize="20sp" />
-            </RadioGroup>
+            </LinearLayout>
+
         </LinearLayout>
 
         <TextView
-            android:id="@+id/enterIngrediants"
+            android:id="@+id/enterIngredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter Ingrediants You Have"
+            android:text="Enter the ingredients you have"
             android:textSize="25sp" />
 
-        <ScrollView
-            android:id="@+id/ingrediantsList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/ingredientName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Enter an ingredient"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+            <Button
+                android:id="@+id/addIngredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="add"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/editText2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="enter an ingrediant"
-                        android:textSize="20sp" />
+        <LinearLayout
+            android:id="@+id/layoutIngredientsList"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="add"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/findRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:text="Find Recipes"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
