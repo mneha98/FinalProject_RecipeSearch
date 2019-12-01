@@ -30,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     /** creating queue object. Required for API call.*/
-    private RequestQueue queue;
+    //private RequestQueue queue;
 
     /** Stores ingredients that the user has.*/
     public static List<String> ingredientList = new ArrayList<>();
@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Required for API call
-        queue = Volley.newRequestQueue(this);
-        btnSearchClickEventHandler();
+        //queue = Volley.newRequestQueue(this);
+        //btnSearchClickEventHandler();
 
     }
 
-    private StringRequest searchNameStringRequest() {
+    /*private StringRequest searchNameStringRequest() {
         Log.d("Message0.0", "Entered searchNameStringRequest");
 
         /*final String API = "&api_key=Rj03HpAXEXrZDfrOx9sIU8W2Fk4kWcAlFm4u5Ldd";
@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         final String BEGINNING_ROW = "&offset=0";
         final String URL_PREFIX = "https://api.nal.usda.gov/ndb/search/?format=json";*/
 
-        final String url = "https://api.edamam.com/search?q=flour&beans&health=peanut-free&health=tree-nut-free&app_id=a48c16e0&app_key=ac643dd19616db4a4bd55efe28e568fb";
+        //final String url = "https://api.edamam.com/search?q=flour&beans&health=peanut-free&health=tree-nut-free&app_id=a48c16e0&app_key=ac643dd19616db4a4bd55efe28e568fb";
 
         // 1st param => type of method (GET/PUT/POST/PATCH/etc)
         // 2nd param => complete url of the API
         // 3rd param => Response.Listener -> Success procedure
         // 4th param => Response.ErrorListener -> Error procedure
-        return new StringRequest(Request.Method.GET, url,
+        /*return new StringRequest(Request.Method.GET, url,
                       new Response.Listener<String>() {
                           @Override
                           public void onResponse(String response) {
@@ -90,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
                                   int count = result.getInt("count");
                                   //JSONArray hits = new JSONArray();
                                   JSONArray hits = result.getJSONArray("hits");
-                                  JSONObject recipe = hits.getJSONObject(0);
-                                  String recipeName = recipe.get("label").toString();
+                                  JSONObject Object0 = hits.getJSONObject(0);
+                                  JSONObject recipe = Object0.getJSONObject("recipe");
+                                  String recipeName = recipe.getString("label");
+                                  //double yield = recipe.getDouble("yield");
 
                                   //JSONArray resultList = result.getJSONArray("item");
                                   Log.d("Message1", "It has probably gone through");
@@ -103,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
                               }
                           }
                       },
-                      new Response.ErrorListener() {
+                      /*new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // display a simple message on the screen
                                 Toast.makeText(MainActivity.this, "Food source is not responding (USDA API)", Toast.LENGTH_LONG).show();
                             }
-                        });
+                        });*/
         /*return new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     // 3rd param - method onResponse lays the code procedure of success return
@@ -149,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Food source is not responding (USDA API)", Toast.LENGTH_LONG).show();
                     }
                 });*/
-    }
-    public void btnSearchClickEventHandler() {
+    //}
+    /*public void btnSearchClickEventHandler() {
         // cancelling all requests about this search if in queue
         //queue.cancelAll(TAG_SEARCH_NAME);
 
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
         // executing the request (adding to queue)
         queue.add(stringRequest);
-    }
+    }*/
 
     private void addIngredient() {
         EditText ingredientName = findViewById(R.id.ingredientName);
@@ -227,8 +229,6 @@ public class MainActivity extends AppCompatActivity {
     private void findRecipeClicked() {
         Intent resultsScreen = new Intent(getApplicationContext(), Results.class);
         startActivity(resultsScreen);
-
-
     }
 
 }
