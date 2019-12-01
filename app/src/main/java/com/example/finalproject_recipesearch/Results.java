@@ -1,9 +1,11 @@
 package com.example.finalproject_recipesearch;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,10 +18,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.net.URL;
+
+import static java.security.AccessController.getContext;
 
 public class Results extends AppCompatActivity {
     /** creating queue object. Required for API call.*/
@@ -104,10 +112,15 @@ public class Results extends AppCompatActivity {
                                 JSONObject recipe = currentObject.getJSONObject("recipe");
                                 String currentRecipeName = recipe.getString("label");
                                 String currentRecipeLink = recipe.getString("url");
+                                String currentRecipeImage = recipe.getString("image");
                                 TextView recipeName = recipeChunk.findViewById(R.id.recipeName);
                                 recipeName.setText(currentRecipeName);
                                 TextView recipeLink = recipeChunk.findViewById(R.id.recipeLink);
                                 recipeLink.setText(currentRecipeLink);
+                                ImageView recipeImage = recipeChunk.findViewById(R.id.recipeImage);
+                                /*Drawable d = (LoadImageFromWebOperations(currentRecipeImage));
+                                recipeImage.setImageDrawable(d);*/
+                                Picasso.get().load(currentRecipeImage).fit().into(recipeImage);
                                 recipeListLayout.addView(recipeChunk);
                             }
                             //double yield = recipe.getDouble("yield");
@@ -190,5 +203,14 @@ public class Results extends AppCompatActivity {
             TextView recipeLink = recipeChunk.findViewById(R.id.recipeLink);
             recipeLink.setText(currentRecipeLink);
             recipeListLayout.addView(recipeChunk);
+    }*/
+    /*private Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }*/
 }

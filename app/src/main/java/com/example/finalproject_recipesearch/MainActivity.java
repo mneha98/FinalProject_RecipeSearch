@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button findRecipe = findViewById(R.id.findRecipe);
+        findRecipe.setVisibility(View.GONE);
         findRecipe.setOnClickListener(unused -> {
             checkFilterList();
             findRecipeClicked();
@@ -165,17 +166,20 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void addIngredient() {
+        Button findRecipe = findViewById(R.id.findRecipe);
         EditText ingredientName = findViewById(R.id.ingredientName);
         if (ingredientName.getText().toString().equals("")) {
             return;
         }
         String ingredientToAdd = ingredientName.getText().toString();
         ingredientList.add(ingredientToAdd);
+        findRecipe.setVisibility(View.VISIBLE);
         ingredientName.setText("");
         updateIngredientList();
     }
 
     private void updateIngredientList() {
+        Button findRecipe = findViewById(R.id.findRecipe);
         LinearLayout ingredientListLayout = findViewById(R.id.layoutIngredientsList);
         ingredientListLayout.removeAllViews();
         for (String current : ingredientList) {
@@ -186,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
             ingredientListLayout.addView(ingredientChunk);
             ingredientChunk.findViewById(R.id.removeIngredient).setOnClickListener(unused -> {
                 ingredientList.remove(current);
+                if (ingredientList.isEmpty()) {
+                    findRecipe.setVisibility(View.GONE);
+                }
                 updateIngredientList();
             });
         }
