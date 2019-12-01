@@ -13,56 +13,10 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/layoutRecipeList"
         android:layout_width="match_parent"
-        android:layout_height="600dp">
-
-        <LinearLayout
-            android:id="@+id/recipeList"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/name1"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Recipe name goes here"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="VIEW" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/cal1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:text="Calories go here"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/time1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Preparation Time goes here"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
 
 </LinearLayout>

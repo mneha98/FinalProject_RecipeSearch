@@ -3,6 +3,9 @@ package com.example.finalproject_recipesearch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,20 +87,33 @@ public class Results extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d("Message0.1", "Entered onResponse");
                         try {
+                            //addRecipe(response);
                             Log.d("Message0.2", "Entered try catch");
                             JSONObject result = new JSONObject(response);
+                            Log.d("Message1", "It has probably gone through");
                             int count = result.getInt("count");
+                            Log.d("Message2", "The number of recipes is: " + count);
                             //JSONArray hits = new JSONArray();
                             JSONArray hits = result.getJSONArray("hits");
-                            JSONObject Object0 = hits.getJSONObject(0);
-                            JSONObject recipe = Object0.getJSONObject("recipe");
-                            String recipeName = recipe.getString("label");
+                            LinearLayout recipeListLayout = findViewById(R.id.layoutRecipeList);
+                            recipeListLayout.removeAllViews();
+                            for (int i = 0; i < hits.length(); i++) {
+                                View recipeChunk = getLayoutInflater().inflate(R.layout.chunk_recipe,
+                                        recipeListLayout, false);
+                                JSONObject currentObject = hits.getJSONObject(i);
+                                JSONObject recipe = currentObject.getJSONObject("recipe");
+                                String currentRecipeName = recipe.getString("label");
+                                String currentRecipeLink = recipe.getString("url");
+                                TextView recipeName = recipeChunk.findViewById(R.id.recipeName);
+                                recipeName.setText(currentRecipeName);
+                                TextView recipeLink = recipeChunk.findViewById(R.id.recipeLink);
+                                recipeLink.setText(currentRecipeLink);
+                                recipeListLayout.addView(recipeChunk);
+                            }
                             //double yield = recipe.getDouble("yield");
-
                             //JSONArray resultList = result.getJSONArray("item");
-                            Log.d("Message1", "It has probably gone through");
-                            Log.d("Message2", "The number of recipes is: " + count);
-                            Log.d("Message3", "The recipe name is: " + recipeName);
+                            //Log.d("Message3", "The recipe name is: " + recipeName);
+
                             // catch for the JSON parsing error
                         } catch (JSONException e) {
                             Toast.makeText(Results.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -152,4 +168,27 @@ public class Results extends AppCompatActivity {
                 });*/
     }
 
+    /*private void addRecipe(String response) {
+        Log.d("Message0.2", "Entered try catch");
+        JSONObject result = new JSONObject(response);
+        Log.d("Message1", "It has probably gone through");
+        int count = result.getInt("count");
+        Log.d("Message2", "The number of recipes is: " + count);
+        //JSONArray hits = new JSONArray();
+        JSONArray hits = result.getJSONArray("hits");
+        LinearLayout recipeListLayout = findViewById(R.id.layoutRecipeList);
+        recipeListLayout.removeAllViews();
+        for (int i = 0; i < hits.length(); i++) {
+            View recipeChunk = getLayoutInflater().inflate(R.layout.chunk_recipe,
+                    recipeListLayout, false);
+            JSONObject currentObject = hits.getJSONObject(i);
+            JSONObject recipe = currentObject.getJSONObject("recipe");
+            String currentRecipeName = recipe.getString("label");
+            String currentRecipeLink = recipe.getString("url");
+            TextView recipeName = recipeChunk.findViewById(R.id.recipeName);
+            recipeName.setText(currentRecipeName);
+            TextView recipeLink = recipeChunk.findViewById(R.id.recipeLink);
+            recipeLink.setText(currentRecipeLink);
+            recipeListLayout.addView(recipeChunk);
+    }*/
 }
