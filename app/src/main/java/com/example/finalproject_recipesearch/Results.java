@@ -1,10 +1,13 @@
 package com.example.finalproject_recipesearch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,26 +29,103 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.lang.Integer.parseInt;
 import static java.security.AccessController.getContext;
 
+/**
+ * Class that manages activity_results screen.
+ * activity_results shows list fo recipes along with web links and pictures and allows you
+ * to click on a recipe to view ingredients you need but don't have.
+ * Leads to activity_individual_recipe screen.
+ */
 public class Results extends AppCompatActivity {
-    /** creating queue object. Required for API call.*/
+
+    /**
+     * creating queue object. Required for API call.
+     */
     private RequestQueue queue;
+
+    /**
+     * list to store missing ingredients.
+     */
+    public static List<RequiredIngredients> recipeButtonList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        Log.d("Message6.0", "Screen loaded with contents");
+        //Log.d("Message6.0", "Screen loaded with contents");
+
+        //required for API call
         queue = Volley.newRequestQueue(Results.this);
         updateRecipeList();
+        /*Intent intent = new Intent(getApplicationContext(), IndividualRecipe.class);
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == 1000) {
+                    intent.putExtra("Ingredient List index", 0);
+                    startActivity(intent);
+                }
+                if (v.getId() == 1001) {
+                    intent.putExtra("Ingredient List index", 1);
+                    startActivity(intent);
+                }
+                if (v.getId() == 1002) {
+                    intent.putExtra("Ingredient List index", 2);
+                    startActivity(intent);
+                }
+                if (v.getId() == 1003) {
+                    intent.putExtra("Ingredient List index", 3);
+                    startActivity(intent);
+                }
+                if (v.getId() == 1004) {
+                    intent.putExtra("Ingredient List index", 4);
+                    startActivity(intent);
+                }
+            }
+        };*/
         /*findViewById(R.id.view).setOnClickListener(unused -> {
             startActivity(new Intent(Results.this, Recipe.class));
+        });*/
+        /*Button button0 = recipeButtonList.get(0).button;
+        button0.setOnClickListener(unused -> {
+            Intent intent = new Intent(getApplicationContext(), IndividualRecipe.class);
+            intent.putStringArrayListExtra("Ingredient List", recipeButtonList.get(1).requiredIngredientList);
+            startActivity(intent);
+        });
+        for (RequiredIngredients current : recipeButtonList) {
+            Button currentButton = current.button;
+            currentButton.setOnClickListener(unused -> {
+                //Bundle extra = new Bundle();
+                //extra.putSerializable("objects", current.requiredIngredientList);
+                Intent intent = new Intent(getApplicationContext(), IndividualRecipe.class);
+                intent.putStringArrayListExtra("Ingredient List", current.requiredIngredientList);
+                startActivity(intent);
+            });
+        }*/
+
+        /*for (int i = 0; i < recipeButtonList.size(); i++) {
+
+        }*/
+        /*EditText recipeNo = findViewById(R.id.recipeNo);
+        int a = parseInt(recipeNo.getText().toString());
+        intent.putExtra("Ingredient List index", a);
+
+        Button view = findViewById(R.id.view);
+        view.setOnClickListener(unused -> {
+            startActivity(intent);
         });*/
 
     }
 
+    /**
+     * calls function to make API call and adds to queue
+     */
     public void updateRecipeList() {
         Log.d("Message6.2", "Entered updateRecipeList()");
         // cancelling all requests about this search if in queue
@@ -59,30 +139,38 @@ public class Results extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    /**
+     * Function that makes the API call
+     *
+     * @return StringRequest object to be added to queue
+     */
     private StringRequest searchNameStringRequest() {
-        Log.d("Message0.0", "Entered searchNameStringRequest");
+        //Log.d("Message0.0", "Entered searchNameStringRequest");
 
+        //API key and ID obtained from website
         final String API = "&app_id=a48c16e0&app_key=ac643dd19616db4a4bd55efe28e568fb";
-        StringBuilder ingredientSearch = new StringBuilder("flour");
+        //String to store all ingredient queries required by user
+        StringBuilder ingredientSearch = new StringBuilder("salt");
+        //String to store all filter queries required by user
         StringBuilder filterSearch = new StringBuilder();
-        //final String FOOD_GROUP = "&fg=";
-        //final String SORT = "&sort=r";
+        //Limits no of recipes returned by API call
         final String MAX_ROWS = "&from=0&to=5";
-        //final String BEGINNING_ROW = "&offset=0";
         final String URL_PREFIX = "https://api.edamam.com/search?q=";
 
+        //Picks up all user inputted ingredients and appends concerned string
         for (String current : MainActivity.ingredientList) {
             ingredientSearch.append("+" + current);
         }
+        //Picks up all user inputted filters and appends concerned string
         for (String current : MainActivity.filterList) {
             filterSearch.append("&" + current);
         }
+        //Final url to which API call will be made
         String url = URL_PREFIX + ingredientSearch + filterSearch + API + MAX_ROWS;
-        Log.d("Message0.3","GeneratedURL: " + url);
+        //Log.d("Message0.3","GeneratedURL: " + url);
 
-
+        //Test url that definitely works. Left for debugging if needed
         // String url = "https://api.edamam.com/search?q=flour&beans&health=peanut-free&health=tree-nut-free&app_id=a48c16e0&app_key=ac643dd19616db4a4bd55efe28e568fb";
-
 
 
         // 1st param => type of method (GET/PUT/POST/PATCH/etc)
@@ -93,18 +181,18 @@ public class Results extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Message0.1", "Entered onResponse");
+                        //Log.d("Message0.1", "Entered onResponse");
                         try {
-                            //addRecipe(response);
-                            Log.d("Message0.2", "Entered try catch");
+                            //Log.d("Message0.2", "Entered try catch");
                             JSONObject result = new JSONObject(response);
-                            Log.d("Message1", "It has probably gone through");
+                            //Log.d("Message1", "It has probably gone through");
                             int count = result.getInt("count");
-                            Log.d("Message2", "The number of recipes is: " + count);
-                            //JSONArray hits = new JSONArray();
+                            //Log.d("Message2", "The number of recipes is: " + count);
                             JSONArray hits = result.getJSONArray("hits");
                             LinearLayout recipeListLayout = findViewById(R.id.layoutRecipeList);
+                            Intent intent = new Intent(getApplicationContext(), IndividualRecipe.class);
                             recipeListLayout.removeAllViews();
+                            //inflating and adding chunks for each recipe
                             for (int i = 0; i < hits.length(); i++) {
                                 View recipeChunk = getLayoutInflater().inflate(R.layout.chunk_recipe,
                                         recipeListLayout, false);
@@ -113,20 +201,40 @@ public class Results extends AppCompatActivity {
                                 String currentRecipeName = recipe.getString("label");
                                 String currentRecipeLink = recipe.getString("url");
                                 String currentRecipeImage = recipe.getString("image");
-                                TextView recipeName = recipeChunk.findViewById(R.id.recipeName);
-                                recipeName.setText(currentRecipeName);
+
+                                //Setting recipe name as button
+                                Button recipeNameButton = recipeChunk.findViewById(R.id.recipeName);
+                                recipeNameButton.setText(currentRecipeName);
+                                recipeNameButton.setId(1000 + i);
+                                final int index = i;
+                                recipeNameButton.setOnClickListener(new View.OnClickListener() {
+                                    public void onClick(View v) {
+                                        Log.i("TAG", "The index is" + index);
+                                        intent.putExtra("Ingredient List index", index);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                //Setting recipe link as text view
                                 TextView recipeLink = recipeChunk.findViewById(R.id.recipeLink);
                                 recipeLink.setText(currentRecipeLink);
+
+                                //Setting image
                                 ImageView recipeImage = recipeChunk.findViewById(R.id.recipeImage);
-                                /*Drawable d = (LoadImageFromWebOperations(currentRecipeImage));
-                                recipeImage.setImageDrawable(d);*/
                                 Picasso.get().load(currentRecipeImage).fit().into(recipeImage);
                                 recipeListLayout.addView(recipeChunk);
-                            }
-                            //double yield = recipe.getDouble("yield");
-                            //JSONArray resultList = result.getJSONArray("item");
-                            //Log.d("Message3", "The recipe name is: " + recipeName);
 
+                                //Extracting required ingredients list.
+                                ArrayList<String> ingredientsList = new ArrayList<>();
+                                JSONArray ingredientLines = recipe.getJSONArray("ingredients");
+                                for (int j = 0; j < ingredientLines.length(); j++) {
+                                    JSONObject current = ingredientLines.getJSONObject(j);
+                                    String currentItem = current.getString("text");
+                                    ingredientsList.add(currentItem);
+                                }
+                                RequiredIngredients toAdd = new RequiredIngredients(recipeNameButton, ingredientsList);
+                                recipeButtonList.add(toAdd);
+                            }
                             // catch for the JSON parsing error
                         } catch (JSONException e) {
                             Toast.makeText(Results.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -140,7 +248,11 @@ public class Results extends AppCompatActivity {
                         Toast.makeText(Results.this, "Food source is not responding (USDA API)", Toast.LENGTH_LONG).show();
                     }
                 });
-        /*return new StringRequest(Request.Method.GET, url,
+    }
+}
+
+     //Basic code to make an API call. Left for debugging if needed
+    /*return new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     // 3rd param - method onResponse lays the code procedure of success return
                     // SUCCESS
@@ -179,38 +291,3 @@ public class Results extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Food source is not responding (USDA API)", Toast.LENGTH_LONG).show();
                     }
                 });*/
-    }
-
-    /*private void addRecipe(String response) {
-        Log.d("Message0.2", "Entered try catch");
-        JSONObject result = new JSONObject(response);
-        Log.d("Message1", "It has probably gone through");
-        int count = result.getInt("count");
-        Log.d("Message2", "The number of recipes is: " + count);
-        //JSONArray hits = new JSONArray();
-        JSONArray hits = result.getJSONArray("hits");
-        LinearLayout recipeListLayout = findViewById(R.id.layoutRecipeList);
-        recipeListLayout.removeAllViews();
-        for (int i = 0; i < hits.length(); i++) {
-            View recipeChunk = getLayoutInflater().inflate(R.layout.chunk_recipe,
-                    recipeListLayout, false);
-            JSONObject currentObject = hits.getJSONObject(i);
-            JSONObject recipe = currentObject.getJSONObject("recipe");
-            String currentRecipeName = recipe.getString("label");
-            String currentRecipeLink = recipe.getString("url");
-            TextView recipeName = recipeChunk.findViewById(R.id.recipeName);
-            recipeName.setText(currentRecipeName);
-            TextView recipeLink = recipeChunk.findViewById(R.id.recipeLink);
-            recipeLink.setText(currentRecipeLink);
-            recipeListLayout.addView(recipeChunk);
-    }*/
-    /*private Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
-}
