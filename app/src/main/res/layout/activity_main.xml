@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
+        android:background="#F9F7FD"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,11 +19,52 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/filters"
+            android:id="@+id/enterIngredients"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Filters"
-            android:textSize="25sp" />
+            android:layout_height="49dp"
+            android:text="The ingredients you have:"
+            android:textColor="#33126D"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ingredientName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Enter an ingredient"
+                android:inputType="textPersonName"
+                android:textColor="#673AB7"
+                android:textColorHighlight="#F8F1B4"
+                android:textColorHint="#647A7E"
+                android:textColorLink="#FFC107"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/addIngredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#402177"
+                android:text="add"
+                android:textColor="#FFFAEE"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutIngredientsList"
+            android:layout_width="match_parent"
+            android:layout_height="293dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/types"
@@ -41,13 +83,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Diet Restrictions"
-                    android:textSize="20sp" />
+                    android:textColor="#2F1759"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/balanced"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Balanced"
+                    android:textColorHighlight="#FFF08B"
+                    android:textColorLink="#FFCF2B"
                     android:textSize="20sp" />
 
                 <CheckBox
@@ -95,6 +141,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Peanut Free"
+                    android:textColorHighlight="#FCF5D3"
+                    android:textColorHint="#9BC4CA"
+                    android:textColorLink="#FFC107"
                     android:textSize="20sp" />
 
                 <CheckBox
@@ -102,54 +151,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sugar Conscious"
+                    android:textColorLink="#FFC107"
                     android:textSize="20sp" />
 
                 <CheckBox
                     android:id="@+id/alcoholFree"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Alcohol Free"
                     android:textSize="20sp" />
             </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/enterIngredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enter the ingredients you have"
-            android:textSize="25sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/ingredientName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Enter an ingredient"
-                android:inputType="textPersonName"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/addIngredient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="add"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutIngredientsList"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -161,7 +173,11 @@
         android:layout_height="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
+        android:background="#6C47AA"
         android:text="Find Recipes"
+        android:textColor="#FFFBF1"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

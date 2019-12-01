@@ -15,7 +15,9 @@
             android:id="@+id/recipeName"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Recipe Name" />
+            android:background="#F9F7FD"
+            android:text="Recipe Name"
+            android:textColor="#2F1759" />
 
         <ImageView
             android:id="@+id/recipeImage"
@@ -32,6 +34,9 @@
         android:layout_weight="1"
         android:autoLink="web"
         android:text="Recipe Link"
-        android:textSize="12sp" />
+        android:textColorHighlight="#FFF7E0"
+        android:textColorHint="#FFC107"
+        android:textColorLink="#F5B800"
+        android:textSize="18sp" />
 
 </LinearLayout>

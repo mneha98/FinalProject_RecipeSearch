@@ -7,11 +7,15 @@
         android:id="@+id/titleResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2D355F"
+        android:background="#402177"
+        android:gravity="center|center_vertical"
+        android:lineSpacingExtra="10sp"
         android:scrollbarSize="4dp"
-        android:text="Results"
+        android:text="Searching Results"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
 
     <LinearLayout
         android:id="@+id/layoutRecipeList"
