@@ -38,10 +38,11 @@ public class IndividualRecipe extends AppCompatActivity {
      * @param requiredIngredientList received from API call (in Results class)
      */
     private void compareList(ArrayList<String> requiredIngredientList) {
+        boolean isThere = true;
         for (String currentr : requiredIngredientList) {
-            boolean isThere = true;
             for (String currenti : MainActivity.ingredientList) {
                 if (currentr.toLowerCase().contains(currenti.toLowerCase())) {
+                    isThere = true;
                     break;
                 } else {
                     isThere = false;
