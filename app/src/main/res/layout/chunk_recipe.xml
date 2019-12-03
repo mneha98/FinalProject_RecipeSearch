@@ -35,7 +35,7 @@
         android:layout_weight="1"
         android:autoLink="web"
         android:text="Recipe Link"
-        android:textColorHighlight="#FFECDE"
+        android:textColorHighlight="#F4F4F2"
         android:textColorHint="#FFC107"
         android:textColorLink="#E65319"
         android:textSize="18sp" />
