@@ -167,6 +167,8 @@ public class Results extends AppCompatActivity {
         }
         //Final url to which API call will be made
         String url = URL_PREFIX + ingredientSearch + filterSearch + API + MAX_ROWS;
+
+
         //Log.d("Message0.3","GeneratedURL: " + url);
 
         //Test url that definitely works. Left for debugging if needed

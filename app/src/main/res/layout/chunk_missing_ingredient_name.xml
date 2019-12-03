@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#F9F7FD"
+    android:background="#F4F4F2"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/missingIngredient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#402177"
+        android:background="#F4F4F2"
+        android:text="Missing Ingredient:"
+        android:textColor="#1A273A"
         android:textSize="20sp" />
 </LinearLayout>

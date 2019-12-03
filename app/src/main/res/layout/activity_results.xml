@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F2"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/titleResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#402177"
+        android:background="#1A273A"
         android:gravity="center|center_vertical"
         android:lineSpacingExtra="10sp"
         android:scrollbarSize="4dp"
@@ -21,6 +23,7 @@
         android:id="@+id/layoutRecipeList"
         android:layout_width="match_parent"
         android:layout_height="700dp"
+        android:background="#F4F4F2"
         android:orientation="vertical" />
 
 </LinearLayout>

@@ -9,7 +9,7 @@
         android:layout_width="275dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textColor="#402177"
+        android:textColor="#1A273A"
         android:textSize="18sp" />
 
     <Button
@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Remove"
-        android:textColor="#30155E"
+        android:textColor="#1A273A"
         android:textStyle="bold" />
 </LinearLayout>
